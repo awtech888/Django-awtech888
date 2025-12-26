@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# Django
+*.log
+*.pot
+*.pyc
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+static_root/
+
+# Local settings
+*.env
+*.local
+
+# PyCharm / VS Code
+.idea/
+.vscode/
+
+# macOS / Linux temp files
+.DS_Store
+*.swp
+
+# Git
+*.orig
