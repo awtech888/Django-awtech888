@@ -91,6 +91,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'awtech888.wsgi.application'
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'awtech888_db',
+        'USER': 'awtech_user',
+        'PASSWORD': 'strongpassword',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases

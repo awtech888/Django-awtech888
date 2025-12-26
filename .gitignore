@@ -23,7 +23,7 @@ static_root/
 # Local settings
 *.env
 *.local
-
+.env
 # PyCharm / VS Code
 .idea/
 .vscode/
