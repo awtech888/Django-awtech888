@@ -20,7 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Allauth (email + Google login)
     path('accounts/', include('allauth.urls')),
-
     # Your app URLs
     path('', include(('accounts.urls', 'accounts'), namespace='accounts')),
 ]

@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,6 +27,7 @@ SECRET_KEY = 'o2+cy8#t36-rmy5za4^nz6y@56ja#)772smeppd*lr8v+vqhks'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
 
 
 # Application definition
@@ -47,6 +49,23 @@ INSTALLED_APPS = [
     # local apps
     'accounts',
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '<123>',
+            'secret': '<321>',
+            'key': ''
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -76,8 +95,8 @@ ROOT_URLCONF = 'awtech888.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR / 'templates'],  # This should point to the templates folder
+        'APP_DIRS': True,  # This allows Django to find templates inside app directories
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -91,6 +110,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'awtech888.wsgi.application'
 
+# Database
+# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -101,18 +123,20 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
-
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+AUTH_USER_MODEL = "accounts.User"
+# Allauth settings
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_AUTHENTICATED_REDIRECT_URL = '/'  # Redirect after login
+LOGIN_REDIRECT_URL = '/profile/' # Redirect after successful login
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'  # Redirect after logout
+LOGOUT_REDIRECT_URL = '/login'
+ACCOUNT_LOGIN_METHODS = {"email", "username"}
+ACCOUNT_SIGNUP_FIELDS = ["email*", "username*", "password1*", "password2*"]
+ACCOUNT_FORMS = {
+    "login": "accounts.form.CustomLoginForm",
+    "signup": "accounts.form.CustomSignupForm",
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
